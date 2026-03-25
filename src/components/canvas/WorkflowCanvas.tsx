@@ -55,8 +55,20 @@ export const WorkflowCanvas = () => {
           defaultViewport={{ x: 0, y: 0, zoom: 1 }}
         >
           <Background color="#334155" variant={BackgroundVariant.Dots} gap={24} size={2} />
-          <Controls className="fill-slate-400 bg-slate-900 border-slate-800" />
+          <Controls className="!bg-transparent shadow-2xl border-none" />
         </ReactFlow>
+        <style>{`
+          .react-flow__controls-button {
+            background-color: #0f172a !important;
+            border-bottom: 1px solid #1e293b !important;
+            fill: #94a3b8 !important;
+            transition: all 0.2s ease;
+          }
+          .react-flow__controls-button:hover {
+            background-color: #1e293b !important;
+            fill: #f8fafc !important;
+          }
+        `}</style>
       </ReactFlowProvider>
     </div>
   );

@@ -8,8 +8,8 @@ const BaseNode = ({ id, data, title, inputs, outputs, children }: any) => {
   else if (data.execStatus === "FAILED") ringClass = "border-rose-500 shadow-[0_0_20px_rgba(225,29,72,0.3)]";
 
   return (
-    <div className={`bg-[#0B0F19]/90 backdrop-blur-2xl text-slate-200 rounded-[28px] min-w-[280px] border-[1.5px] transition-all duration-500 ${ringClass} shadow-[0_8px_32px_rgba(0,0,0,0.6)] group overflow-hidden`}>
-      <div className="px-5 py-4 bg-white/[0.02] border-b border-white/[0.08] text-sm font-bold flex justify-between items-center transition-all">
+    <div className={`bg-[#0B0F19]/90 backdrop-blur-2xl text-slate-200 rounded-[28px] min-w-[280px] border-[1.5px] transition-all duration-500 ${ringClass} shadow-[0_8px_32px_rgba(0,0,0,0.6)] group`}>
+      <div className="px-5 py-4 bg-white/[0.02] border-b border-white/[0.08] text-sm font-bold flex justify-between items-center transition-all rounded-t-[28px]">
         <span className="tracking-wide text-slate-100 drop-shadow-md">{title}</span>
         {data.execStatus && (
           <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest backdrop-blur-md shadow-inner ${
