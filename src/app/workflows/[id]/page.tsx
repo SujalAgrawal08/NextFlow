@@ -114,10 +114,23 @@ export default function WorkflowEditorPage({ params }: { params: Promise<{ id: s
            
            if (data.nodeRuns) {
              const currentNodes = useWorkflowStore.getState().nodes;
-             setNodes(currentNodes.map(n => {
+             let stateChanged = false;
+             
+             const updatedNodes = currentNodes.map(n => {
                const run = data.nodeRuns.find((nr: any) => nr.nodeId === n.id);
-               return run ? { ...n, data: { ...n.data, execStatus: run.status, error: run.error, outputs: run.outputs } } : n;
-             }));
+               if (!run) return n;
+               
+               // Strict check to prevent identical states from triggering React Auto-Save loops
+               if (n.data.execStatus !== run.status || n.data.error !== run.error || JSON.stringify(n.data.outputs) !== JSON.stringify(run.outputs)) {
+                 stateChanged = true;
+                 return { ...n, data: { ...n.data, execStatus: run.status, error: run.error, outputs: run.outputs } };
+               }
+               return n;
+             });
+             
+             if (stateChanged) {
+               setNodes(updatedNodes);
+             }
            }
            
            if (data.status === "COMPLETED" || data.status === "FAILED") {
